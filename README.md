@@ -1,4 +1,6 @@
-<center>Centered text</center>
+<div align="center">
+# Club-2020-2021
+</div>
 <p align="center">
 <img src = "https://github.com/Wayland-CS-Club/club-2020-2021/blob/main/Final%20logo.png" alt="Club logo">
 </p>
