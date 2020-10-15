@@ -1,3 +1,6 @@
+h1, h2, h3 {
+  text-align: center;
+}
 <div align="center">
 <h1> Club-2020-2021 </h1>
 </div>
