@@ -6,4 +6,4 @@ um
 
 
 ## Discord code
-...
+https://discord.gg/g4R5q2
