@@ -1,8 +1,8 @@
 <div align="center">
-<h1> Club-2020-2021 </h1>
+<h1>Club-2020-2021</h1>
 </div>
 <p align="center">
-<img src = "https://github.com/Wayland-CS-Club/club-2020-2021/blob/main/logo.png">
+<img src = "https://github.com/Wayland-CS-Club/club-2020-2021/blob/main/logo.png" alt="Club logo" width="500" height="600">
 </p>
 
 ## Overview
