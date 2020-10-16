@@ -1,8 +1,14 @@
-# club-2020-2021
+<div align="center">
+<h1> Club-2020-2021 </h1>
+</div>
+<p align="center">
+<img src = "https://github.com/Wayland-CS-Club/club-2020-2021/blob/main/Final%20logo.png" alt="Club logo">
+</p>
 
 ## Overview
-um
+### Title 
+Wayland CS Club
 
 
 ## Discord code
-...
+https://discord.gg/g4R5q2
