@@ -5,9 +5,9 @@
 <img src = "https://github.com/Wayland-CS-Club/club-2020-2021/blob/main/logo.png" alt="Club logo">
 </p>
 
-## Overview
+## Project #1
 ### Title 
-Wayland CS Club
+Discord Bot
 
 
 ## Discord code
