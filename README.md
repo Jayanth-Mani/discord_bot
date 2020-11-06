@@ -7,7 +7,7 @@
 
 ## Project #1
 ### Discord Bot
-Discord Bot
+Discord Bot For Wayland CS Club.
 
 
 ## Discord code
