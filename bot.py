@@ -1,8 +1,11 @@
 import discord
 from discord.ext import commands
+import os
+from dotenv import load_dotenv
 
-client = commands.Bot(command_prefix="!")
-cli = discord.Client()
+load_dotenv("token.env") # replace ".env" with whatever you named your file
+client_token = os.environ.get("token")
+client = commands.Bot(command_prefix="$")
 
 @client.command()
 async def server(ctx):
@@ -29,14 +32,24 @@ async def server(ctx):
     await ctx.send(embed=embed)
 
 @client.command()
-async def hello(ctx, *args):
+async def echo(ctx, *args):
+    text = ""
     for arg in args:
-        await ctx.send(arg)
+        text = text + " " + arg
+    await ctx.send(text)
 
-@cli.event
-async def on_message(message):
-    if str(message.channel.type) == "private":
+@client.command()
+async def hello(message):
+    await message.channel.send("Hello " + message.author.display_name)
+
+@client.command()
+async def bm(ctx, *args):
+    message = ""
+    for arg in args:
+        message = message + " " + arg
+    if str(ctx.channel.type) == "private":
         modmail_channel = discord.utils.get(client.get_all_channels(), name="mod-mail")
-        await modmail_channel.send("["+ message.author.display_name + "] " + message.content)
+        await modmail_channel.send("["+ ctx.author.display_name + "] " + message)
 
-client.run("Nzc0MDgzNTExNDA1MjQ4NTMy.X6Sncg.2miOxdZQkRdwku6K9bRGHb0xWOM")
+
+client.run(client_token)

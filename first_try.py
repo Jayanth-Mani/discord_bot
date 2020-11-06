@@ -1,6 +1,10 @@
 import discord
 from discord.ext import commands
+import os
+from dotenv import load_dotenv
 
+load_dotenv("token.env") # replace ".env" with whatever you named your file
+client_token = os.environ.get("token")
 client = discord.Client()
 
 @client.event
@@ -28,5 +32,5 @@ async def on_message(message):
         modmail_channel = discord.utils.get(client.get_all_channels(), name="bot-mail")
         await modmail_channel.send("["+ message.author.display_name + "] " + message.content)
 
-client.run("Nzc0MDgzNTExNDA1MjQ4NTMy.X6Sncg.2miOxdZQkRdwku6K9bRGHb0xWOM")
+client.run(client_token)
 
