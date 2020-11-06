@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import random
 import os
 from dotenv import load_dotenv
 
@@ -32,18 +33,32 @@ async def server(ctx):
     await ctx.send(embed=embed)
 
 @client.command()
-async def echo(ctx, *args):
+async def echo(ctx, *args): # $echo + stuff will return the same things inputed.
     text = ""
     for arg in args:
         text = text + " " + arg
     await ctx.send(text)
 
 @client.command()
-async def hello(message):
+async def mock(ctx, *args): # $echo + stuff will return the same things inputed.
+    text = ""
+    for arg in args:
+        text = text + " " + arg
+    translation = ""
+    for x in text:
+        rand = random.randint(1,11)
+        if rand<=5:
+            translation = translation + x.upper()
+        else:
+            translation = translation + x.lower()
+    await ctx.send(translation)
+
+@client.command()
+async def hello(message): # $hello will return "Hello + your username"
     await message.channel.send("Hello " + message.author.display_name)
 
 @client.command()
-async def bm(ctx, *args):
+async def bm(ctx, *args): # using the command $bm while DMing the bot will put it int mod-mail
     message = ""
     for arg in args:
         message = message + " " + arg
@@ -53,3 +68,5 @@ async def bm(ctx, *args):
 
 
 client.run(client_token)
+
+#coded by Brendan Shen
