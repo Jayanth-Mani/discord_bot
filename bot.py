@@ -1,9 +1,14 @@
+# discord imports
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
+# my other imports
 import random
 import os
-from dotenv import load_dotenv
 import itertools as it
+import pyjokes
+from weather_command import *
+
 
 load_dotenv("token.env") # replace ".env" with whatever you named your file
 client_token = os.environ.get("token")
@@ -96,6 +101,32 @@ async def bm(ctx, *args): # using the command $bm while DMing the bot will put i
         modmail_channel = discord.utils.get(client.get_all_channels(), name="mod-mail")
         await modmail_channel.send("["+ ctx.author.display_name + "] " + message)
 
+@client.command()
+async def sup_b_shens(ctx):
+    await ctx.channel.send(f"Sup {ctx.author.display_name}.")
+
+@client.command(aliases = alias_creator("joke"))
+async def joke(ctx):
+    await ctx.channel.send(pyjokes.get_joke(language="en"))
+
+@client.command(aliases = alias_creator("weather"))
+async def weather(ctx, arg):
+    result = weather_report(arg)
+    desc = result[0]
+    temp = result[1]
+    feel = result[2]
+    embed = discord.Embed(
+        title=arg + " Weather Data",
+        Description= "This is the data from the city you asked for",
+        color=discord.Color.blue()    
+    )
+    icon = str(ctx.guild.icon_url)
+    embed.set_thumbnail(url=icon)
+    embed.add_field(name="Weather: ", value=desc, inline=True)
+    embed.add_field(name="Temperature: ", value=temp, inline=True)
+    embed.add_field(name="Feels like: ", value=feel, inline=True)
+
+    await ctx.send(embed=embed)
 
 client.run(client_token)
 
