@@ -32,6 +32,11 @@ async def mock(ctx, *, message):
     text = memify(message)
     await ctx.send(text)
 
+#NOTE: this command will clear messages --be careful
+@client.command()
+async def clear(ctx, amount=5):
+    await ctx.channel.purge(limit=amount)
+
 # gives you the latency of the bot
 @client.command()
 async def ping(ctx):
