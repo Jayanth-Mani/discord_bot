@@ -1,2 +1,4 @@
 my_token.py
 *.pyc
+users.py
+channels.py
