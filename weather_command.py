@@ -14,13 +14,13 @@ else:
     print("Response Failed")
 '''
 
-load_dotenv("WeatherAPI.env") # replace ".env" with whatever you named your file
+load_dotenv("ultimate.env") # replace ".env" with whatever you named your file
 api_key = os.environ.get("API_KEY")
 
-url = "http://api.openweathermap.org/data/2.5/weather?"
+url = "http://api.openweathermap.org/data/2.5/"
 
 def weather_report(city):
-    final_url = url + "appid=" + api_key + "&q=" + city.lower()
+    final_url = url + "weather?appid=" + api_key + "&q=" + city.lower()
     json_data = requests.get(final_url).json()
     print(json_data)
     description = json_data["weather"][0]["description"]
@@ -28,6 +28,18 @@ def weather_report(city):
     feels_like = str(round(k_to_f(json_data['main']['feels_like']), 2)) + "°F"
     return str(description), str(temperature), str(feels_like)
 
+def weather_forecast(city):
+    final_url = f"{url}forecast?q={city.lower()}&appid={api_key}"
+    json_data = requests.get(final_url).json()
+    results = {}
+    day = 1
+    for it in range(40):
+        time = str(json_data["list"][it]["dt_txt"][11:])
+        if time == "12:00:00":
+            results.update({"day " + str(day): "Low: " + str(round(k_to_f(json_data["list"][it]["main"]["temp_min"]), 2)) + "°F " + "\nHigh: " + str(round(k_to_f(json_data["list"][it]["main"]["temp_max"]), 2)) + "°F "})
+            day += 1
+            print(results)
+    return results
 
 '''cities = ["boston", "chicago", "san francisco",]
 weather = []

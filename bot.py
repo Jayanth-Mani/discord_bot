@@ -10,7 +10,7 @@ import pyjokes
 from weather_command import *
 
 
-load_dotenv("token.env") # replace ".env" with whatever you named your file
+load_dotenv("ultimate.env") # replace ".env" with whatever you named your file
 client_token = os.environ.get("token")
 client = commands.Bot(command_prefix="$")
 
@@ -122,11 +122,36 @@ async def weather(ctx):
         Description= "This is the data from the city you asked for",
         color=discord.Color.blue()    
     )
-    icon = str(ctx.guild.icon_url)
+    icon = str("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.le89Xert7ixw1G9XibizoQAAAA%26pid%3DApi&f=1")
     embed.set_thumbnail(url=icon)
     embed.add_field(name="Weather: ", value=desc, inline=True)
     embed.add_field(name="Temperature: ", value=temp, inline=True)
     embed.add_field(name="Feels like: ", value=feel, inline=True)
+
+    await ctx.send(embed=embed)
+
+@client.command(aliases = alias_creator("forecast"))
+async def forecast(ctx):
+    query = ctx.message.content[10:]
+    result = weather_forecast(query)
+    day1 = result["day 1"]
+    day2 = result["day 2"]
+    day3 = result["day 3"]
+    day4 = result["day 4"]
+    day5 = result["day 5"]
+
+    embed = discord.Embed(
+        title=query + " Weather Forecast",
+        Description= "This is the forecast from the city you asked for",
+        color=discord.Color.blue()    
+    )
+    icon = str("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.le89Xert7ixw1G9XibizoQAAAA%26pid%3DApi&f=1")
+    embed.set_thumbnail(url=icon)
+    embed.add_field(name="Day 1: ", value=day1, inline=False)
+    embed.add_field(name="Day 2: ", value=day2, inline=False)
+    embed.add_field(name="Day 3: ", value=day3, inline=False)
+    embed.add_field(name="Day 4: ", value=day4, inline=False)
+    embed.add_field(name="Day 5: ", value=day5, inline=False)
 
     await ctx.send(embed=embed)
 
