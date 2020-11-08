@@ -110,13 +110,15 @@ async def joke(ctx):
     await ctx.channel.send(pyjokes.get_joke(language="en"))
 
 @client.command(aliases = alias_creator("weather"))
-async def weather(ctx, arg):
-    result = weather_report(arg)
+async def weather(ctx):
+    query = ctx.message.content[9:]
+    result = weather_report(query)
     desc = result[0]
     temp = result[1]
     feel = result[2]
+
     embed = discord.Embed(
-        title=arg + " Weather Data",
+        title=query + " Weather Data",
         Description= "This is the data from the city you asked for",
         color=discord.Color.blue()    
     )
@@ -130,4 +132,4 @@ async def weather(ctx, arg):
 
 client.run(client_token)
 
-#coded by Brendan Shen
+#coded by Brendan Shens
