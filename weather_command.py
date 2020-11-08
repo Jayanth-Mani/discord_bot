@@ -15,7 +15,7 @@ else:
 '''
 
 load_dotenv("ultimate.env") # replace ".env" with whatever you named your file
-api_key = os.environ.get("API_KEY")
+api_key = os.environ.get("weather_API_KEY")
 
 url = "http://api.openweathermap.org/data/2.5/"
 
@@ -36,7 +36,7 @@ def weather_forecast(city):
     for it in range(40):
         time = str(json_data["list"][it]["dt_txt"][11:])
         if time == "12:00:00":
-            results.update({"day " + str(day): "Low: " + str(round(k_to_f(json_data["list"][it]["main"]["temp_min"]), 2)) + "°F " + "\nHigh: " + str(round(k_to_f(json_data["list"][it]["main"]["temp_max"]), 2)) + "°F "})
+            results.update({"day " + str(day): "Low: " + str(round(k_to_f(json_data["list"][it]["main"]["temp_min"]), 2)) + "°F " + "\nHigh: " + str(round(k_to_f(json_data["list"][it]["main"]["temp_max"]), 2)) + "°F " + "\nHumidity: " + str(json_data["list"][it]["main"]["humidity"]) + "%"})
             day += 1
             print(results)
     return results

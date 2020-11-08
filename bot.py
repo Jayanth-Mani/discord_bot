@@ -26,6 +26,7 @@ def alias_creator(s): # this makes it so that you can use any combination of upp
 
 @client.event
 async def on_ready():
+    await client.change_presence(status=discord.Status.online,activity=discord.Activity(name="Bot Dominance", type=5))
     print("Bot is ready.")
 
 @client.event
@@ -37,6 +38,22 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print(f"{member} has left a server.")
     await member.channel.send(f"{member} has left the server.")
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if str(message.channel.type) == "private":
+        botmail_channel = discord.utils.get(client.get_all_channels(), name="bot-mail")
+        await botmail_channel.send("["+ message.author.display_name + "] " + message.content)
+        modmail_channel = discord.utils.get(client.get_all_channels(), name="mod-mail")
+        await modmail_channel.send("["+ message.author.display_name + "] " + message.content)
+    elif str(message.channel) == "bot-mail" and message.content.startswith("<"):
+        member_object = message.mentions[0]
+        index = message.content.index(" ")
+        string = message.content
+        mod_message = string[index:]
+        await member_object.send(f"{member_object.mention} [{message.author.display_name}] {mod_message}")
 
 # gives you the latency of the bot
 @client.command(aliases = alias_creator("ping"))
@@ -91,15 +108,6 @@ async def mock(ctx, *args): # $echo + stuff will return the same things inputed.
 @client.command(aliases = alias_creator("hello"))
 async def hello(message): # $hello will return "Hello + your username"
     await message.channel.send("Hello " + message.author.display_name)
-
-@client.command(aliases = alias_creator("bm"))
-async def bm(ctx, *args): # using the command $bm while DMing the bot will put it int mod-mail
-    message = ""
-    for arg in args:
-        message = message + " " + arg
-    if str(ctx.channel.type) == "private":
-        modmail_channel = discord.utils.get(client.get_all_channels(), name="mod-mail")
-        await modmail_channel.send("["+ ctx.author.display_name + "] " + message)
 
 @client.command()
 async def sup_b_shens(ctx):
