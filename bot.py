@@ -2,7 +2,8 @@ import discord
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
-from bot_jokes import *
+from joke_scraper import *
+
 
 client = commands.Bot(command_prefix=";;")
 
