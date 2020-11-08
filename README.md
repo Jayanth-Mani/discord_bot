@@ -9,6 +9,10 @@
 ### Discord Bot
 Discord Bot For Wayland CS Club.
 
+Our bots do weird stuff. 
+
 
 ## Discord code
 https://discord.gg/g4R5q2
+
+Use the discord to see our amazing bots.
