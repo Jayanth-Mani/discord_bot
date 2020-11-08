@@ -1,8 +1,9 @@
 import discord
+import os
+from dotenv import load_dotenv
 
 client = discord.Client()
 @client.event
-
 async def on_message(message):
     message.content = message.content.lower()
     if message.author == client.user:
@@ -12,12 +13,9 @@ async def on_message(message):
         
         if str(message.author) == "Maniman#8394":
             await message.channel.send("Hello good sir, " + str(message.author))
-
-        await message.channel.send('Shenbot is my good friend')
     
-    if str(message.author) == "B$hens#7985":
-        await message.channel.send("Ahh, B Shen, creator of Shenbot, my good friend")
 
-# add your token instead
-client.run('NzY2NDgzOTExMjM2MTI0Njcy.X4kBxQ.W-6fVSq7Xk5_Ch2f6X0MtOlvIOQ')
+load_dotenv(".env") # replace ".env" with whatever you named your file
+client_token = os.environ.get('TOKEN')
 
+client.run(client_token)
