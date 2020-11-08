@@ -6,6 +6,11 @@ from bot_jokes import *
 
 client = commands.Bot(command_prefix=";;")
 
+@client.event
+async def on_ready():
+    await client.change_presence(status=discord.Status.online,activity=discord.Game(";;being a bot."))
+    print("ManimanBot is ready.")
+
 @client.command()
 async def echo(ctx, *args):
     message = ''
