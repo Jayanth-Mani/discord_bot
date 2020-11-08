@@ -5,6 +5,7 @@ This is code for Mr. Charles, a discord bot for the Wayland CS Club Server
 # discord
 import discord
 from discord.ext import commands
+from discord import Member
 
 # other modules
 import random
@@ -33,9 +34,9 @@ async def mock(ctx, *, message):
     await ctx.send(text)
 
 #NOTE: this command will clear messages --be careful
-@client.command()
-async def clear(ctx, amount=5):
-    await ctx.channel.purge(limit=amount)
+# @client.command()
+# async def clear(ctx, amount=5):
+#     await ctx.channel.purge(limit=amount)
 
 # gives you the latency of the bot
 @client.command()
@@ -54,12 +55,18 @@ async def _8ball(ctx, *, question):
     #     response = responses[0]
 
     await ctx.send(f'Question: \"{question}\"\nAnswer: ' + response)
+
+@client.command(pass_context=True)
+async def status(ctx, member: Member):
+    await ctx.send(str(Member.activity) + " and " + str(Member.status))
             
 
 # CLIENT EVENTS: https://stackoverflow.com/questions/52689954/what-it-really-is-client-event-discord-py
 @client.event
 async def on_ready():
     print("Mr. Charles is ready")
+    await client.change_presence(activity=discord.Activity(
+                                type=discord.ActivityType.watching, name='you'))
     
 @client.event
 async def on_member_join(member):
