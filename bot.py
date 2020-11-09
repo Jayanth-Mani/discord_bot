@@ -2,6 +2,10 @@
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
+from discord.voice_client import VoiceClient
+from discord import FFmpegPCMAudio
+from discord.utils import get
+import asyncio
 # my other imports
 import random
 import os
@@ -54,6 +58,7 @@ async def on_message(message):
         string = message.content
         mod_message = string[index:]
         await member_object.send(f"{member_object.mention} [{message.author.display_name}] {mod_message}")
+    await client.process_commands(message)    
 
 # gives you the latency of the bot
 @client.command(aliases = alias_creator("ping"))
@@ -162,6 +167,48 @@ async def forecast(ctx):
     embed.add_field(name="Day 5: ", value=day5, inline=False)
 
     await ctx.send(embed=embed)
+
+@client.command(aliases = alias_creator("shenbot"))
+async def shenbot(message):
+    if str(message.author) == "B$hens#7985":
+        await message.channel.send("Hello " + str(message.author.display_name) + " the master!")
+    else:
+        await message.channel.send("I am Shenbot")
+
+@client.command(
+    name='music',
+    description='Plays the Avengers theme',
+    pass_context=True,
+    aliases = alias_creator("music")
+)
+async def music(ctx):
+    cmd = ctx.message.content[7:]
+    commands = ["play", "pause", "resume", "stop"]
+    try:
+        channel = ctx.message.author.voice.channel
+    except:
+        await ctx.send("You are not connected to a voice channel.")
+        return
+    voice = get(client.voice_clients, guild=ctx.guild)
+    if cmd == "play":
+        if voice and voice.is_connected():
+            await voice.move_to(channel)
+        else:
+            voice = await channel.connect()
+        source = FFmpegPCMAudio('The Avengers Theme Song.mp3')
+        voice.play(source)
+    if cmd == "pause":
+        voice.pause()
+    if cmd == "resume":
+        voice.resume()
+    if cmd == "stop":
+        await voice.disconnect()
+    elif cmd not in commands:
+        await ctx.send(f"{cmd} is not a command, please try again.")
+
+@client.command()
+async def shut(ctx):
+    exit()
 
 client.run(client_token)
 
